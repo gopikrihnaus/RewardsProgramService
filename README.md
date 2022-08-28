@@ -35,7 +35,7 @@ Run
 --------
 
 ```sh
-cd spring-boot-sample
+cd RewardsProgramService
 mvn clean install
 mvn spring-boot:run
 ```
