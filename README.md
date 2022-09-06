@@ -46,7 +46,7 @@ Access
 ### Select
 
 ```
-http://localhost:8080/rewards/1/lastThreeMonth
+http://localhost:8080/api/v1/rewards/1/lastThreeMonthRewards
 ```
 JSON Response:
 
@@ -72,7 +72,7 @@ Rewards program will load some tets data into H2 DB
 Access the customers in side the DB
 
 ```
-http://localhost:8080/customer/
+http://localhost:8080/api/v1/customer/
 ```
 JSON Response:
 
@@ -83,7 +83,7 @@ JSON Response:
 Access the Purchases in side the DB
 
 ```
-http://localhost:8080/purchase/
+http://localhost:8080/api/v1/purchase/
 ```
 JSON Response:
 
