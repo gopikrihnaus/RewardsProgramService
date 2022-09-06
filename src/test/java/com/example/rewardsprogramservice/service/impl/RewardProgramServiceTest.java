@@ -223,4 +223,55 @@ public class RewardProgramServiceTest {
 
         Map<String, Double> expected = service.getRewardsForTheLastThreeMonthsByCustomerId(customer.getId());
     }
+
+    @Test
+    public void testGetPointsByMonth() {
+        Map<String, Double> pointsByMonth = service.getPointsByMonth(getPurchasesTestList4());
+        assertThat(pointsByMonth.size()).isEqualTo(3);
+        pointsByMonth.entrySet().forEach(stringDoubleEntry -> {
+            assertThat(stringDoubleEntry.getValue()).isEqualTo(30);
+        });
+
+        Map<String, Double> pointsByMonth1 = service.getPointsByMonth(getPurchasesTestList1());
+        assertThat(pointsByMonth1.size()).isEqualTo(1);
+        pointsByMonth1.entrySet().forEach(stringDoubleEntry -> {
+            assertThat(stringDoubleEntry.getValue()).isEqualTo(90);
+        });
+
+        Map<String, Double> pointsByMonth2 = service.getPointsByMonth(getPurchasesTestList2());
+        assertThat(pointsByMonth2.size()).isEqualTo(1);
+        pointsByMonth2.entrySet().forEach(stringDoubleEntry -> {
+            assertThat(stringDoubleEntry.getValue()).isEqualTo(0);
+        });
+
+        Map<String, Double> pointsByMonth3 = service.getPointsByMonth(getPurchasesTestList3());
+        assertThat(pointsByMonth3.size()).isEqualTo(1);
+        pointsByMonth3.entrySet().forEach(stringDoubleEntry -> {
+            assertThat(stringDoubleEntry.getValue()).isEqualTo(30);
+        });
+    }
+
+    @Test
+    public void testGetPoints() {
+        double points = service.getPoints(getPurchasesTestList4());
+        assertThat(points).isEqualTo(90);
+
+        double points1 = service.getPoints(getPurchasesTestList1());
+        assertThat(points1).isEqualTo(90);
+
+        double points2 = service.getPoints(getPurchasesTestList2());
+        assertThat(points2).isEqualTo(0);
+    }
+
+    @Test
+    public void testGetMonthFromInt() {
+        String monthFromIntValue1 = service.getMonthFromIntValue(0);
+        assertThat(monthFromIntValue1).isEqualToIgnoringCase("JANUARY");
+
+        String monthFromIntValue2 = service.getMonthFromIntValue(11);
+        assertThat(monthFromIntValue2).isEqualToIgnoringCase("DECEMBER");
+
+        String monthFromIntValue100 = service.getMonthFromIntValue(100);
+        assertThat(monthFromIntValue100.trim()).isEmpty();
+    }
 }

@@ -66,7 +66,7 @@ public class RewardProgramService {
         return cal.getTime();
     }
 
-    private Map<String, Double> getPointsByMonth(List<Purchase> purchases) {
+    public Map<String, Double> getPointsByMonth(List<Purchase> purchases) {
         // group the data by month
         final Map<Integer, List<Purchase>> purchasesByMonth = purchases.stream()
                 .collect(Collectors.groupingBy(purchase -> purchase.getCreatedAt().getMonth()));
@@ -91,7 +91,7 @@ public class RewardProgramService {
      * @param purchases
      * @return points
      */
-    private double getPoints(List<Purchase> purchases) {
+    public double getPoints(List<Purchase> purchases) {
         double points = 0.0;
         for (Purchase purchase : purchases) {
             Double amount = purchase.getAmount();
@@ -106,7 +106,7 @@ public class RewardProgramService {
         return points;
     }
 
-    private String getMonthFromIntValue(int m) {
+    public String getMonthFromIntValue(int m) {
         String monthName = " ";
         DateFormatSymbols dfs = new DateFormatSymbols();
         String[] months = dfs.getMonths();
