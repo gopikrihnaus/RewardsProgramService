@@ -26,10 +26,12 @@ public class RewardsProgramServiceIntegrationTests {
 
     TestRestTemplate restTemplate = new TestRestTemplate();
 
+    private static final String API_PREFIX = "/api/v1";
+
     @Test
     public void testGetRewardsFromDB() {
         ResponseEntity<Map<String, Integer>> responseEntity =
-                restTemplate.exchange(createURLWithPort("/rewards/1/lastThreeMonth"),
+                restTemplate.exchange(createURLWithPort(API_PREFIX + "/rewards/1/lastThreeMonthRewards"),
                         HttpMethod.GET, null,
                         new ParameterizedTypeReference<Map<String, Integer>>() {
                         });
@@ -41,7 +43,7 @@ public class RewardsProgramServiceIntegrationTests {
     @Test
     public void testGetCustomersFromDB() {
         ResponseEntity<List<Customer>> responseEntity =
-                restTemplate.exchange(createURLWithPort("/customer/"),
+                restTemplate.exchange(createURLWithPort(API_PREFIX + "/customer/"),
                         HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<Customer>>() {
                         });
@@ -54,7 +56,7 @@ public class RewardsProgramServiceIntegrationTests {
     @Test
     public void testGetPurchasesFromDB() {
         ResponseEntity<List<Purchase>> responseEntity =
-                restTemplate.exchange(createURLWithPort("/customer/"),
+                restTemplate.exchange(createURLWithPort(API_PREFIX + "/customer/"),
                         HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<Purchase>>() {
                         });

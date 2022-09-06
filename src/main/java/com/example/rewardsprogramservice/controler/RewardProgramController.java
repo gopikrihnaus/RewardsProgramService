@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/rewards")
+@RequestMapping("/api/v1/rewards")
 public class RewardProgramController {
 
     private RewardProgramService rewardProgram;
@@ -24,7 +24,7 @@ public class RewardProgramController {
         this.rewardProgram = rewardProgram;
     }
 
-    @GetMapping("/{customerId}/lastThreeMonth")
+    @GetMapping("/{customerId}/lastThreeMonthRewards")
     public ResponseEntity<Map<String, Double>> getRewardsForTheLastThreeMonthsByCustomerId(@PathVariable Long customerId) {
         Map<String, Double> rewardsForTheLastThreeMonthsByCustomerId = rewardProgram.getRewardsForTheLastThreeMonthsByCustomerId(customerId);
         return new ResponseEntity<>(rewardsForTheLastThreeMonthsByCustomerId, HttpStatus.OK);

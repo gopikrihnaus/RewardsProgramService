@@ -34,6 +34,8 @@ public class PurchaseControllerTest {
     @MockBean
     private PurchaseService purchaseService;
 
+    private static final String API_PREFIX = "/api/v1/purchase/";
+
     @Test
     public void listCustomerById_whenGetMethod() throws Exception {
 
@@ -43,7 +45,7 @@ public class PurchaseControllerTest {
 
         given(purchaseService.findById(purchase.getId())).willReturn(purchase);
 
-        mvc.perform(get("/purchase/" + purchase.getId().toString())
+        mvc.perform(get(API_PREFIX + purchase.getId().toString())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("details", is(purchase.getDetails())));
@@ -57,7 +59,7 @@ public class PurchaseControllerTest {
 
         Mockito.doThrow(new CustomerNotFoundException()).when(purchaseService).findById(purchase.getId());
 
-        mvc.perform(get("/purchase/" + purchase.getId().toString())
+        mvc.perform(get(API_PREFIX + purchase.getId().toString())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -75,7 +77,7 @@ public class PurchaseControllerTest {
                 .findAllPurchases())
                 .willReturn(allCustomers);
 
-        mvc.perform(get("/purchase/")
+        mvc.perform(get(API_PREFIX)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -90,7 +92,7 @@ public class PurchaseControllerTest {
 
         doNothing().when(purchaseService).delete(purchase.getId());
 
-        mvc.perform(delete("/purchase/" + purchase.getId().toString())
+        mvc.perform(delete(API_PREFIX + purchase.getId().toString())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
@@ -103,7 +105,7 @@ public class PurchaseControllerTest {
 
         Mockito.doThrow(new CustomerNotFoundException()).when(purchaseService).delete(purchase.getId());
 
-        mvc.perform(delete("/purchase/" + purchase.getId().toString())
+        mvc.perform(delete(API_PREFIX + purchase.getId().toString())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
@@ -117,12 +119,13 @@ public class PurchaseControllerTest {
 
         given(purchaseService.save(purchase)).willReturn(purchase);
 
-        mvc.perform(post("/purchase/")
+        mvc.perform(post(API_PREFIX)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(purchase)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.details", is(purchase.getDetails())));
     }
+
     @Test
     public void updateCustomer_whenPutUser() throws Exception {
 
@@ -133,7 +136,7 @@ public class PurchaseControllerTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        mvc.perform(put("/purchase/" + purchase.getId().toString())
+        mvc.perform(put(API_PREFIX + purchase.getId().toString())
                 .content(mapper.writeValueAsString(purchase))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -149,7 +152,7 @@ public class PurchaseControllerTest {
         Mockito.doThrow(new CustomerNotFoundException()).when(purchaseService).update(purchase.getId(), purchase);
         ObjectMapper mapper = new ObjectMapper();
 
-        mvc.perform(put("/purchase/" + purchase.getId().toString())
+        mvc.perform(put(API_PREFIX + purchase.getId().toString())
                 .content(mapper.writeValueAsString(purchase))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
