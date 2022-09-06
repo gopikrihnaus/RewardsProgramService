@@ -179,6 +179,42 @@ public class RewardProgramServiceTest {
         return purchases;
     }
 
+    private List<Purchase> getPurchasesTestList5() {
+        Purchase purchase = new Purchase();
+        purchase.setId(1L);
+        purchase.setDetails("Test");
+        purchase.setAmount(0.0);
+        purchase.setCreatedAt(new Date());
+        purchase.setUpdatedAt(new Date());
+        List<Purchase> purchases = new ArrayList<>();
+        purchases.add(purchase);
+        return purchases;
+    }
+
+    private List<Purchase> getPurchasesTestList6() {
+        Purchase purchase = new Purchase();
+        purchase.setId(1L);
+        purchase.setDetails("Test");
+        purchase.setAmount(-100.0);
+        purchase.setCreatedAt(new Date());
+        purchase.setUpdatedAt(new Date());
+        List<Purchase> purchases = new ArrayList<>();
+        purchases.add(purchase);
+        return purchases;
+    }
+
+    private List<Purchase> getPurchasesTestList7() {
+        Purchase purchase = new Purchase();
+        purchase.setId(1L);
+        purchase.setDetails("Test");
+        purchase.setAmount(120.50);
+        purchase.setCreatedAt(new Date());
+        purchase.setUpdatedAt(new Date());
+        List<Purchase> purchases = new ArrayList<>();
+        purchases.add(purchase);
+        return purchases;
+    }
+
     private Date getBeforeMonth(int month, int i) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
@@ -261,6 +297,16 @@ public class RewardProgramServiceTest {
 
         double points2 = service.getPoints(getPurchasesTestList2());
         assertThat(points2).isEqualTo(0);
+
+        double points3 = service.getPoints(getPurchasesTestList5());
+        assertThat(points3).isEqualTo(0);
+
+        double points4 = service.getPoints(getPurchasesTestList6());
+        assertThat(points4).isEqualTo(0);
+
+        double points5 = service.getPoints(getPurchasesTestList7());
+        assertThat(points5).isEqualTo(91);
+
     }
 
     @Test
